@@ -1,0 +1,43 @@
+<h1 class="text-center headers">TUDU</h1>
+<hr class="margin-top:-1px; background=#fff">
+<section class="row ">
+    <!-- Bloque de menú -->
+    <div class="col-md-4 col-lg-3 col-sm-6 col-12" >
+        <app-menu (onMenuItemActiveChange) = "catchMenuItem( $event )" />
+        
+    </div>
+
+    <!-- Contenedor global -->
+    <div class="col">
+        <!-- Contenedor de tareas -->
+        <div class="row" *ngIf="activeMenuItem.item == 'Mis tareas'; else formulario">
+            <h3 class="col-12 text-center">Tareas</h3>
+            <hr class="col-12">
+            <!-- {{tareas | json}} -->
+
+            <app-tarea-card />            
+        </div>   
+
+        <!-- Formulario para nueva tarea   -->
+        <ng-template #formulario>
+            <div class="row">
+                <h3 class="col-12 text-center">Nueva Tarea</h3>
+                <hr class="col-12">
+
+                <app-tarea-formulario />            
+            </div>
+        </ng-template>      
+    </div>
+</section>
+<script>
+     setTimeout(()=>{
+
+    let alerta = document.getElementById('alerta');
+    if (alerta) {
+        
+        alerta.remove();
+    }
+    },4000);
+
+</script>
+

@@ -1,0 +1,29 @@
+<div class="mocoso">
+    <h3 class="text-center">Menu</h3>
+    <hr style="margin-top:-1px; background:#fff">
+    <div class="card text-center tarjetaProfile">
+        <div class="forma-cuadro">
+            <img class="card-img-top profilePicture" src="https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" width="20" alt="Card image cap">
+        </div>
+        
+    </div>
+    <ul class="list-group mt-3 stickyMenu">
+        <li class="list-group-item" 
+            *ngFor="let menuItem of menuItems; let i = index">
+                <button type="button" 
+                class="btn btn-outline-primary w-100" 
+                (click)="setMenuItemAsActive(i)"
+                [ngClass]="{'active': menuItem.active}"
+                >
+            {{menuItems[i].item}}</button>
+        </li>
+        <!-- <li class="list-group-item">
+            <button type="button" class="btn btn-outline-primary w-100"
+            (click)="setMenuItemAsActive(menuItems[0])"
+            [ngClass]="{'active': menuItems[1].active}">
+            {{menuItems[1].item}}</button>
+            <a href="/mvc/tareas" class="btn btn-link text-white">Mis tareas</a>
+        </li> -->
+    </ul>
+
+</div>
