@@ -2,9 +2,9 @@
 <hr class="margin-top:-1px; background=#fff">
 <section class="row ">
     <!-- Bloque de menú -->
-    <div class="col-md-4 col-lg-3 col-sm-6 col-12" >
-        <app-menu (onMenuItemActiveChange) = "catchMenuItem( $event )" />
-        
+    <div class="col-md-4 col-lg-3 col-sm-6 col-12" >        
+        <app-menu [activeIndex]="activeMenuItemIndex" 
+            (onMenuItemActiveChange)="catchMenuItem( $event )" />
     </div>
 
     <!-- Contenedor global -->
@@ -15,7 +15,13 @@
             <hr class="col-12">
             <!-- {{tareas | json}} -->
 
-            <app-tarea-card />            
+            <app-tarea-card 
+                class="p-1 col-12 col-sm-6 col-lg-6" 
+                *ngFor="let tarea of tareas; let i = index" 
+                [indice]="i"
+                [tarea]="tarea"
+                (onStatusChange)="catchOnStatusChange( $event )"
+            />           
         </div>   
 
         <!-- Formulario para nueva tarea   -->
@@ -24,7 +30,9 @@
                 <h3 class="col-12 text-center">Nueva Tarea</h3>
                 <hr class="col-12">
 
-                <app-tarea-formulario />            
+                <app-tarea-formulario 
+                    (onAddTarea)="catchOnAddTarea( $event )"
+                />          
             </div>
         </ng-template>      
     </div>

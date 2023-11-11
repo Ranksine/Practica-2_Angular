@@ -1,23 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from './models/menu-item.model';
 import { Tarea } from './models/tarea.model';
+import { MenuItem } from './models/menu-item.model';
+import { TareaCardItem } from './models/tarea-card-item.model';
+import { ActiveMenuItem } from './models/active-menu-item.model';
+import { TareaStatus } from '../enum/tarea-status.enum';
 
 @Component({
   selector: 'app-mi-componente',
   templateUrl: './mi-componente.component.html',
   styleUrls: ['./mi-componente.component.css']
 })
+
 export class MiComponenteComponent implements OnInit{
   // public menuItems: {item:string, active:boolean}[] = [];
   // Opciones para el menú
-  activeMenuItem: MenuItem = {item: 'Mis tareas', active: false};
+  activeMenuItem: MenuItem = { item: 'Mis tareas', active: false };
+  activeMenuItemIndex: number = 1;
   // Lista de tareas guardadas
   tareas: Tarea[] = [];
   // Objeto para agregar tareas
   newTarea:Tarea={
-    titulo:'perrin',
+    titulo:'simon',
     descripcion:'',
-    status:'Pendiente'
+    status:TareaStatus.Pendiente
   };
   
 
@@ -39,12 +44,25 @@ export class MiComponenteComponent implements OnInit{
   //   }
   // }
 
-  public catchMenuItem(item: MenuItem): void {
-    this.activeMenuItem = item;
+  public catchMenuItem(item: ActiveMenuItem): void {
+    this.activeMenuItem = item.menuItem;
+    this.activeMenuItemIndex = item.activeIndex;
+    console.log("Item activo: ",this.activeMenuItemIndex);
+
   }
 
-  public cambiarStatus(index:number, status: string): void {
-    this.tareas[index].status = status;
+  catchOnStatusChange(info: TareaCardItem) {
+    let { indice, tarea } = info;
+    this.tareas[indice] = tarea;
+    this.almacenarDatos();
+  }
+
+  catchOnAddTarea(tarea: Tarea) {
+    this.tareas.push(tarea);
+    // Navegar a la lista
+    this.activeMenuItemIndex = 1;
+    console.log("Item activo: ",this.activeMenuItemIndex);
+    // Almacenar los datos
     this.almacenarDatos();
   }
 
